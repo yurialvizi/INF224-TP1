@@ -1,0 +1,5 @@
+-Wall
+-g
+-MM
+MyClass.cpp
+main.cpp
