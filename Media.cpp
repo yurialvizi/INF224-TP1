@@ -1,4 +1,4 @@
-#include<Media.hh>
+#include "Media.hh"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ string Media::getFileName() const {return fileName;}
 
 void Media::setFileName(const string& newFileName) {fileName = newFileName;}
 
-void Media::display(ostream &s) {
-    cout << "Name: " << name << endl;
-    cout << "File Name: " << fileName << endl;
+void Media::display(ostream &s) const {
+    s << "Name: " << name << endl;
+    s << "File Name: " << fileName << endl;
 }
