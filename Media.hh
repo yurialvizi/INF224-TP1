@@ -1,3 +1,6 @@
+#ifndef MEDIA_HH
+#define MEDIA_HH
+
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -11,17 +14,20 @@ private:
 
 public:
     Media();
-    Media(const string& name, const string& fileName) : name{name}, fileName{fileName} {}
+    Media(const string& name, const string& fileName);
     
     ~Media() {}
 
-    string getName() const {return name;}
+    string getName() const;
 
-    void setName(const string& newName) {name = newName;}
+    void setName(const string& newName);
 
-    string getFileName() const {return fileName;}
+    string getFileName() const;
 
-    void setFileName(const string& newFileName) {fileName = newFileName;}
+    void setFileName(const string& newFileName);
 
-    void display(ostream &s) {}
+    void display(ostream &s) const;
+
+    virtual void play() const = 0;
 };
+#endif /* MEDIA_HH */
