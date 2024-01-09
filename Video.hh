@@ -22,7 +22,7 @@ public:
         return duration;
     }
 
-    void display(ostream &s) const {
+    void display(ostream &s) const override {
         Media::display(s);
         s << "Duration: " << duration << endl;
     }

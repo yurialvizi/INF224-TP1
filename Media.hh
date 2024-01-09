@@ -26,7 +26,7 @@ public:
 
     void setFileName(const string& newFileName);
 
-    void display(ostream &s) const;
+    virtual void display(ostream &s) const;
 
     virtual void play() const = 0;
 };

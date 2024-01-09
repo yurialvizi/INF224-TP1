@@ -28,7 +28,7 @@ public:
         return longitude;
     }
 
-    void display(ostream &s) const {
+    void display(ostream &s) const override {
         Media::display(s);
         s << "Latitude: " << latitude << endl;
         s << "Longitude: " << longitude << endl;
