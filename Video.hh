@@ -7,14 +7,15 @@ class Video : public Media
 {
 private:
     int duration{};
-
-public:
     Video() {}
     Video(string name, string fileName, int duration) : Media(name, fileName), duration(duration) {}
-    ~Video() {
-        cout << "Video " << Media::getFileName() << " deleted!" << endl;
-    }
 
+public:
+    friend class Manager;
+    friend class Movie;
+    ~Video() {
+        cout << "Video " << Media::getName() << " deleted!" << endl;
+    }
     void setDuration(int duration)
     {
         this->duration = duration;

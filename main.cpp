@@ -10,53 +10,31 @@
 #include "Movie.hh"
 #include "Group.hh"
 #include <vector>
+#include "Manager.hh"
 
-using namespace std;
 typedef std::shared_ptr<Media> MediaPtr;
 
 int main(int argc, const char* argv[])
 {
-    MediaPtr v1(new Video("Video 1", "video1.mp4", 120));
-    MediaPtr v2(new Video("Video 2", "video2.mp4", 120));
-    MediaPtr p1(new Photo("Photo 1", "photo1.jpg", 120, 120));
-    MediaPtr p2(new Photo("Photo 2", "photo2.jpg", 120, 120));
+    Manager* manager = new Manager();
+    MediaPtr v1(manager->createVideo("Video 1", "video1.mp4", 120));
+    MediaPtr v2(manager->createVideo("Video 2", "video2.mp4", 120));
+    MediaPtr p1(manager->createPhoto("Photo 1", "media/photo.png", 120, 120));
+    MediaPtr p2(manager->createPhoto("Photo 2", "photo2.jpg", 120, 120));
 
-    // Video v1("Video 1", "video1.mp4", 120);
-    // Video v2("Video 2", "video2.mp4", 120);
-    // Photo p1("Photo 1", "photo1.jpg", 120, 120);
-    // Photo p2("Photo 2", "photo2.jpg", 120, 120);
+    manager->createGroup("Vacation", {v1, v2, p1, p2});
+    manager->createGroup("Photos", {p1, p2});
+    manager->createGroup("Videos", {v1, v2});
 
-    
-    Group* vacation = new Group({v1, v2, p1, p2}, "Vacation");
-    Group* photos = new Group({p1, p2}, "Photos");
-    Group* videos = new Group({v1, v2}, "Videos");
-    // Group<Media*> photos({&p1, &p2}, "Photos");
-    // Group<Media*> videos({&v1, &v2}, "Videos");
-
-
-    cout << "Group name: " << vacation->getName() << endl;
-    cout << "Group name: " << photos->getName() << endl;
-    cout << "Group name: " << videos->getName() << endl;
-    // cout << "Group name: " << photos.getName() << endl;
-    // cout << "Group name: " << videos.getName() << endl;
-
-    cout << "Displaying groups: " << endl;
-    vacation->display(cout);
-    cout << "Pop front: " << endl;
-    vacation->pop_front();
-    vacation->display(cout);
-    cout << "Pop back: " << endl;
-    vacation->pop_back();
-    vacation->display(cout);
-    delete vacation;
-    photos->display(cout);
-    videos->display(cout);
-    photos->pop_front();
-    videos->pop_back();
-
-    
-    // photos.display(cout);
-    // videos.display(cout);
+    cout << "Searching Vacation: " << endl;
+    manager->findGroup("Vacation");
+    cout << "Searching photo 1: " << endl;
+    manager->findMedia("Photo 1");
+    cout << "Deleting photo 2: " << endl;
+    manager->deleteMedia("Photo 2");
+    manager->findGroup("Vacation");
+    manager->findGroup("Photos");
+    manager->findMedia("Photo 2");
 
     return 0;
 }

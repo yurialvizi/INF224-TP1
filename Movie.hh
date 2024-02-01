@@ -8,11 +8,12 @@ class Movie : public Video
 private:
     int *chapters{};
     int numberOfChapters{};
-
-public:
     Movie() {};
     Movie(string name, string fileName, int duration, int *chapters, int  numberOfChapters) : Video(name, fileName, duration), chapters(chapters), numberOfChapters(numberOfChapters){};
 
+public:
+    friend class Manager;
+    
     void setChapters(int *chapters, int numberOfChapters)
     {
         int *oldChapters = this->chapters;

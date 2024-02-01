@@ -8,11 +8,12 @@ class Photo : public Media
 private:
     double latitude{};
     double longitude{};
-public:
     Photo() {}
     Photo(string name, string fileName, double lat, double lon) : Media(name, fileName), latitude(lat), longitude(lon) {}
+public:
+    friend class Manager;
     ~Photo() {
-        cout << "Photo " << Media::getFileName() << " deleted!" << endl;
+        cout << "Photo " << Media::getName() << " deleted!" << endl;
     }
 
     void setLatitude(double lat) {
