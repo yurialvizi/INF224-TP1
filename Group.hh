@@ -3,20 +3,23 @@
 
 #include "Media.hh"
 #include <list>
+#include <memory>
 
 using namespace std;
 
-template <typename T>
-class Group : public list<T> {
+typedef std::shared_ptr<Media> MediaPtr;
+
+class Group : public list<MediaPtr> {
 private: 
     string name{};
 public: 
     Group() {}
-    Group(const initializer_list<T> initList = {}, const string name = {}) : list<T>(initList), name(name) {};
+    Group(const initializer_list<MediaPtr> initList = {}, const string name = {}) : list<MediaPtr>(initList), name(name) {};
     string getName() const {
         return name;
     }
     void display(ostream& s) const {
+        s << "Group name: " << name << endl;
         for (const auto& element : *this) {
             element->display(s);
         }

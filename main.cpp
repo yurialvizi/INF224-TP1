@@ -7,41 +7,56 @@
 #include "Media.hh"
 #include "Photo.hh"
 #include "Video.hh"
+#include "Movie.hh"
+#include "Group.hh"
 #include <vector>
 
 using namespace std;
+typedef std::shared_ptr<Media> MediaPtr;
 
 int main(int argc, const char* argv[])
 {
-    vector<Media*> mediaList;
+    MediaPtr v1(new Video("Video 1", "video1.mp4", 120));
+    MediaPtr v2(new Video("Video 2", "video2.mp4", 120));
+    MediaPtr p1(new Photo("Photo 1", "photo1.jpg", 120, 120));
+    MediaPtr p2(new Photo("Photo 2", "photo2.jpg", 120, 120));
 
-    for (int i = 0; i < 6; i++) {
-        
-        if (i%2 == 0)
-        {
-            string name = "photo " + to_string(i);
-            Photo *media = new Photo(name, "media/photo.png", i, 2*i);
-            mediaList.push_back(media);
-        }
-        else
-        {
-            string name = "video " + to_string(i);
-            Video *media = new Video(name, "media/video.webm", i);
-            mediaList.push_back(media);
-        }
-    }
-    
+    // Video v1("Video 1", "video1.mp4", 120);
+    // Video v2("Video 2", "video2.mp4", 120);
+    // Photo p1("Photo 1", "photo1.jpg", 120, 120);
+    // Photo p2("Photo 2", "photo2.jpg", 120, 120);
 
-    for (int i = 0; i < 6; i++)
-    {
-        if (i%3 == 0)
-        {
-            mediaList[i]->play();
-        } else {
-            mediaList[i]->display(cout);
-        }
-        
-    }
     
+    Group* vacation = new Group({v1, v2, p1, p2}, "Vacation");
+    Group* photos = new Group({p1, p2}, "Photos");
+    Group* videos = new Group({v1, v2}, "Videos");
+    // Group<Media*> photos({&p1, &p2}, "Photos");
+    // Group<Media*> videos({&v1, &v2}, "Videos");
+
+
+    cout << "Group name: " << vacation->getName() << endl;
+    cout << "Group name: " << photos->getName() << endl;
+    cout << "Group name: " << videos->getName() << endl;
+    // cout << "Group name: " << photos.getName() << endl;
+    // cout << "Group name: " << videos.getName() << endl;
+
+    cout << "Displaying groups: " << endl;
+    vacation->display(cout);
+    cout << "Pop front: " << endl;
+    vacation->pop_front();
+    vacation->display(cout);
+    cout << "Pop back: " << endl;
+    vacation->pop_back();
+    vacation->display(cout);
+    delete vacation;
+    photos->display(cout);
+    videos->display(cout);
+    photos->pop_front();
+    videos->pop_back();
+
+    
+    // photos.display(cout);
+    // videos.display(cout);
+
     return 0;
 }

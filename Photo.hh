@@ -11,6 +11,9 @@ private:
 public:
     Photo() {}
     Photo(string name, string fileName, double lat, double lon) : Media(name, fileName), latitude(lat), longitude(lon) {}
+    ~Photo() {
+        cout << "Photo " << Media::getFileName() << " deleted!" << endl;
+    }
 
     void setLatitude(double lat) {
         latitude = lat;
