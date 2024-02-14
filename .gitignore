@@ -3,3 +3,5 @@ myprog
 .vscode/
 depend-myprog
 *.o
+tcpserver
+tcpserver.zip
