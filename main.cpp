@@ -3,7 +3,32 @@
 // Created on 21/10/2018
 //
 
-#define VERSION_STEP_11
+#define VERSION_STEP_12
+
+#ifdef VERSION_STEP_12
+
+#include <iostream>
+#include "Manager.hh"
+
+typedef std::shared_ptr<Media> MediaPtr;
+
+int main(int argc, char const *argv[])
+{
+    Manager* manager = new Manager();
+    // MediaPtr v1(manager->createVideo("Video 1", "media/video.webm", 120));
+    // MediaPtr v2(manager->createVideo("Video 2", "media/video.webm", 120));
+    // MediaPtr p1(manager->createPhoto("Photo 1", "media/photo.png", 120, 120));
+    // MediaPtr p2(manager->createPhoto("Photo 2", "media/photo.png", 120, 120));
+
+
+    manager->readAllMedia("media.txt");
+
+    return 0;
+}
+
+
+
+#endif
 
 #ifdef VERSION_STEP_11
 

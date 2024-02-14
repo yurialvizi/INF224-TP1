@@ -18,6 +18,8 @@ public:
     
     ~Media() {}
 
+    virtual string classname() const = 0;
+
     string getName() const;
 
     void setName(const string& newName);
@@ -29,5 +31,7 @@ public:
     virtual void display(ostream &s) const;
 
     virtual void play() const = 0;
+
+    virtual void read(istream& file) = 0;
 };
 #endif /* MEDIA_HH */

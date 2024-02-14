@@ -12,8 +12,13 @@ private:
     Photo(string name, string fileName, double lat, double lon) : Media(name, fileName), latitude(lat), longitude(lon) {}
 public:
     friend class Manager;
+    friend class MediaFactory;
     ~Photo() {
         cout << "Photo " << Media::getName() << " deleted!" << endl;
+    }
+
+    string classname() const override {
+        return "Photo";
     }
 
     void setLatitude(double lat) {
@@ -34,13 +39,24 @@ public:
 
     void display(ostream &s) const override {
         Media::display(s);
-        s << "Latitude: " << latitude << " | ";
-        s << "Longitude: " << longitude << " | ";
+        s << "Latitude: " << latitude << endl;
+        s << "Longitude: " << longitude << endl;
     }
 
     void play() const override {
         string commandLine = "imagej " + Media::getFileName() + " &";
         system(commandLine.data());
+    }
+
+    void read(istream &file) override {
+        Media::read(file);
+        string lat, lon;
+        getline(file, lat);
+        getline(file, lon);
+        lat = lat.substr(lat.find(":") + 1);
+        lon = lon.substr(lon.find(":") + 1);
+        latitude = stod(lat);
+        longitude = stod(lon);
     }
 };
 
