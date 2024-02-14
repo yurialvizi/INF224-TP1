@@ -28,7 +28,7 @@ public:
 
     void display(ostream &s) const override {
         Media::display(s);
-        s << "Duration: " << duration << endl;
+        s << "Duration: " << duration << " | ";
     }
 
     void play() const override {

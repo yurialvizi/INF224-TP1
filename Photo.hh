@@ -34,8 +34,8 @@ public:
 
     void display(ostream &s) const override {
         Media::display(s);
-        s << "Latitude: " << latitude << endl;
-        s << "Longitude: " << longitude << endl;
+        s << "Latitude: " << latitude << " | ";
+        s << "Longitude: " << longitude << " | ";
     }
 
     void play() const override {

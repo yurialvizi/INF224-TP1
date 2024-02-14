@@ -3,19 +3,101 @@
 // Created on 21/10/2018
 //
 
+#define VERSION_STEP_11
+
+#ifdef VERSION_STEP_11
+
 #include <iostream>
+#include <memory>
+#include <sstream>
+#include <string>
+
+#include "Manager.hh"
+#include "tcpserver.h"
+
+using namespace std;
+typedef std::shared_ptr<Media> MediaPtr;
+
+const int PORT = 3331;
+const string SEARCH = "search";
+const string PLAY = "play";
+
+int main(int argc, const char* argv[]) {
+    Manager* manager = new Manager();
+    MediaPtr v1(manager->createVideo("Video 1", "media/video.webm", 120));
+    MediaPtr v2(manager->createVideo("Video 2", "media/video.webm", 120));
+    MediaPtr p1(manager->createPhoto("Photo 1", "media/photo.png", 120, 120));
+    MediaPtr p2(manager->createPhoto("Photo 2", "media/photo.png", 120, 120));
+
+    manager->createGroup("Vacation", {v1, v2, p1, p2});
+    manager->createGroup("Photos", {p1, p2});
+    manager->createGroup("Videos", {v1, v2});
+
+    auto* server = new TCPServer([&](string const& request, string& response) {
+        cout << "request: " << request << endl;
+
+        // first word is the request type
+        string requestType = request.substr(0, request.find(" "));
+        // second word is the content type (media or group)
+        string requestContentType = request.substr(
+            request.find(" ") + 1,
+            request.find(" ", request.find(" ") + 1) - request.find(" ") - 1);
+        // the string between quotes is the content name
+        string requestContentName =
+            request.substr(request.find("\"") + 1, request.find_last_of("\"") - request.find("\"") - 1);
+
+        if (requestType == SEARCH) {
+            ostringstream responseStream;
+            if (requestContentType == "media") {
+                manager->findMedia(requestContentName, responseStream);
+            } else if (requestContentType == "group") {
+                manager->findGroup(requestContentName, responseStream);
+            } else {
+                responseStream << "Invalid content type";
+            }
+            response = responseStream.str();
+        } else if (requestType == PLAY) {
+            if (requestContentType == "media") {
+                response = "Playing media...";
+                manager->playMedia(requestContentName);
+            } else {
+                response = "Invalid content type";
+            }
+        } else {
+            response = "Invalid request type";
+        }
+
+        return true;
+});
+
+cout << "Starting Server on port " << PORT << endl;
+int status = server->run(PORT);
+
+if (status < 0) {
+    cerr << "Could not start Server on port " << PORT << endl;
+    return 1;
+}
+
+return 0;
+}
+
+#endif
+
+#ifdef VERSION_STEP_10
+
+#include <iostream>
+#include <vector>
+
+#include "Group.hh"
+#include "Manager.hh"
 #include "Media.hh"
+#include "Movie.hh"
 #include "Photo.hh"
 #include "Video.hh"
-#include "Movie.hh"
-#include "Group.hh"
-#include <vector>
-#include "Manager.hh"
 
 typedef std::shared_ptr<Media> MediaPtr;
 
-int main(int argc, const char* argv[])
-{
+int main(int argc, const char* argv[]) {
     Manager* manager = new Manager();
     MediaPtr v1(manager->createVideo("Video 1", "video1.mp4", 120));
     MediaPtr v2(manager->createVideo("Video 2", "video2.mp4", 120));
@@ -38,3 +120,5 @@ int main(int argc, const char* argv[])
 
     return 0;
 }
+
+#endif

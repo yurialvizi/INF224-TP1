@@ -39,10 +39,10 @@ public:
     void display(ostream &s) const override
     {
         Video::display(s);
-        s << "Chapters: " << endl;
+        s << "Chapters: " << " ";
         for (int i = 0; i < getNumberOfChapters(); i++)
         {
-            s << chapters[i] << endl;
+            s << chapters[i] << " | ";
         }
     }
 

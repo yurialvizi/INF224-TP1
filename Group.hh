@@ -20,7 +20,7 @@ public:
         return name;
     }
     void display(ostream& s) const {
-        s << "---Group name: " << name << endl;
+        s << "---Group name: " << name << " | ";
         for (const auto& element : *this) {
             element->display(s);
         }

@@ -15,6 +15,6 @@ string Media::getFileName() const {return fileName;}
 void Media::setFileName(const string& newFileName) {fileName = newFileName;}
 
 void Media::display(ostream &s) const {
-    s << "Name: " << name << endl;
-    s << "File Name: " << fileName << endl;
+    s << "Name: " << name << " | ";
+    s << "File Name: " << fileName << " | ";
 }

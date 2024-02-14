@@ -66,19 +66,19 @@ public:
         }
     }
 
-    void findGroup(string name) {
+    void findGroup(string name, ostream &s) {
         auto it = groups.find(name);
         if (it != groups.end()) {
-            it->second.display(cout);
+            it->second.display(s);
         } else {
             cout << "Group " << name << " not found!" << endl;
         }
     }
 
-    void findMedia(string name) {
+    void findMedia(string name, ostream &s) {
         auto it = medias.find(name);
         if (it != medias.end()) {
-            it->second->display(cout);
+            it->second->display(s);
         } else {
             cout << "Media " << name << " not found!" << endl;
         }
