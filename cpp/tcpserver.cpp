@@ -72,6 +72,8 @@ void SocketCnx::processRequests() {
 
     // a response is always sent to the client (otherwise it might block)
     // writeLine() response folled by a \n delimiter
+    response += "|";
+    cout << "response: " << response << endl;
     auto sent = sockbuf_->writeLine(response);
 
     if (sent < 0) {

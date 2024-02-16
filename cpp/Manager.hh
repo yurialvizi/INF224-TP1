@@ -78,7 +78,7 @@ class Manager {
         if (it != groups.end()) {
             it->second.display(s);
         } else {
-            cout << "Group " << name << " not found!" << endl;
+            s << "Group " << name << " not found!" << endl;
         }
     }
 
@@ -87,16 +87,16 @@ class Manager {
         if (it != medias.end()) {
             it->second->display(s);
         } else {
-            cout << "Media " << name << " not found!" << endl;
+            s << "Media " << name << " not found!" << endl;
         }
     }
 
-    void playMedia(string name) {
+    void playMedia(string name, ostream &s) {
         auto it = medias.find(name);
         if (it != medias.end()) {
             it->second->play();
         } else {
-            cout << "Media " << name << " not found!" << endl;
+            s << "Media " << name << " not found!" << endl;
         }
     }
 

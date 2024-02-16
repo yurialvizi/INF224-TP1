@@ -3,7 +3,7 @@
 // Created on 21/10/2018
 //
 
-#define VERSION_STEP_12
+#define VERSION_STEP_11
 
 #ifdef VERSION_STEP_12
 
@@ -71,26 +71,25 @@ int main(int argc, const char* argv[]) {
         string requestContentName =
             request.substr(request.find("\"") + 1, request.find_last_of("\"") - request.find("\"") - 1);
 
+        ostringstream responseStream;
         if (requestType == SEARCH) {
-            ostringstream responseStream;
             if (requestContentType == "media") {
                 manager->findMedia(requestContentName, responseStream);
             } else if (requestContentType == "group") {
                 manager->findGroup(requestContentName, responseStream);
             } else {
-                responseStream << "Invalid content type";
+                responseStream << "Invalid content type" << endl;
             }
-            response = responseStream.str();
         } else if (requestType == PLAY) {
             if (requestContentType == "media") {
-                response = "Playing media...";
-                manager->playMedia(requestContentName);
+                manager->playMedia(requestContentName, responseStream);
             } else {
-                response = "Invalid content type";
+                responseStream << "Invalid content type" << endl;
             }
         } else {
-            response = "Invalid request type";
+            responseStream << "Invalid request type" << endl;
         }
+        response = responseStream.str();
 
         return true;
 });

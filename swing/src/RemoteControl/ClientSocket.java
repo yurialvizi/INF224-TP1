@@ -1,0 +1,76 @@
+package RemoteControl;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class ClientSocket {
+    private Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
+    private final String serverURI;
+    private final int port;
+    private final MainWindow gui;
+
+    public ClientSocket(String serverURI, int port, MainWindow gui) {
+        this.serverURI = serverURI;
+        this.port = port;
+        this.gui = gui;
+    }
+
+    public void conect() {
+        try {
+            socket = new Socket(serverURI, port);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            // out.writeUTF("Hello from " + socket.getLocalSocketAddress());
+            // gui.setTextArea("Server says " + in.readUTF());
+            // new Thread(this).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    public void sendRequest(String request) {
+
+        try {
+            System.out.println("log: sending request " + request);
+            out.println(request);
+            String line =  in.readLine();
+            System.out.println("log: received line " + line + " " + line.equals("|"));
+            while(!line.equals("|")) {
+                gui.setTextArea(line);
+                line = in.readLine();
+                System.out.println("log: received line " + line + " " + line.equals("|"));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // @Override
+    // public void run() {
+    //     try {
+    //         String linha;
+    //         while ((linha = in.readLine()) != null) {
+    //             gui.receberMensagem(linha);
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
+
+    public void closeConnection() {
+        try {
+            in.close();
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
