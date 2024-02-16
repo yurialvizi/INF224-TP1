@@ -50,7 +50,7 @@ run: all
 classes: $(SOURCES:.java=.class)
 
 clean:
-	-@$(RM) *.class 1>/dev/null 2>&1
+	-@$(RM) $(BIN_DIR)/$(PACKAGE)/*.class 1>/dev/null 2>&1
   
 tar:
 	tar cvf ${PROG}.tar.gz ${SOURCES}
