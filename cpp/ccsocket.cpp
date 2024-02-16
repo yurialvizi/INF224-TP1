@@ -20,7 +20,7 @@
 
 #include <csignal>
 
-#include "ccsocket.h"
+#include "ccsocket.hh"
 
 using namespace std;
 
