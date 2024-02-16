@@ -12,15 +12,9 @@
 PROG = MainWindow
 
 #
-# Package name
-#
-PACKAGE = RemoteControl
-BIN_DIR = bin
-
-#
 # Fichiers sources .java
 #
-SOURCES = $(SRC_DIR)/$(PACKAGE)/MainWindow.java  $(SRC_DIR)/$(PACKAGE)/ButtonAction.java $(SRC_DIR)/$(PACKAGE)/ClientSocket.java 
+SOURCES = MainWindow.java  ButtonAction.java ClientSocket.java 
 
 #
 # Compilateur Java
@@ -32,11 +26,6 @@ JC = javac
 #
 JFLAGS = -g
 
-#
-# Directory containing source files
-#
-SRC_DIR = src
-
 ##########################################
 #
 # Regles de construction/destruction des .class et de l'executable
@@ -45,12 +34,12 @@ SRC_DIR = src
 all: classes
 
 run: all
-	java -cp $(BIN_DIR) $(PACKAGE).${PROG}
+	java ${PROG}
 
 classes: $(SOURCES:.java=.class)
 
 clean:
-	-@$(RM) $(BIN_DIR)/$(PACKAGE)/*.class 1>/dev/null 2>&1
+	-@$(RM) *.class 1>/dev/null 2>&1
   
 tar:
 	tar cvf ${PROG}.tar.gz ${SOURCES}
@@ -65,5 +54,5 @@ tar:
 
 # compile: $(BIN_DIR)
 .java.class:
-	$(JC) -d $(BIN_DIR) $(JFLAGS) $(SRC_DIR)/$(PACKAGE)/*.java
+	$(JC) $(JFLAGS) *.java
 
