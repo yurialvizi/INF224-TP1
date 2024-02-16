@@ -3,39 +3,28 @@
 
 #include "Media.hh"
 
-class Photo : public Media
-{
-private:
+class Photo : public Media {
+   private:
     double latitude{};
     double longitude{};
     Photo() {}
-    Photo(string name, string fileName, double lat, double lon) : Media(name, fileName), latitude(lat), longitude(lon) {}
-public:
+    Photo(string name, string fileName, double lat, double lon)
+        : Media(name, fileName), latitude(lat), longitude(lon) {}
+
+   public:
     friend class Manager;
     friend class MediaFactory;
-    ~Photo() {
-        cout << "Photo " << Media::getName() << " deleted!" << endl;
-    }
+    ~Photo() { cout << "Photo " << Media::getName() << " deleted!" << endl; }
 
-    string classname() const override {
-        return "Photo";
-    }
+    string classname() const override { return "Photo"; }
 
-    void setLatitude(double lat) {
-        latitude = lat;
-    }
+    void setLatitude(double lat) { latitude = lat; }
 
-    void setLongitude(double lon) {
-        longitude = lon;
-    }
+    void setLongitude(double lon) { longitude = lon; }
 
-    double getLatitude() const {
-        return latitude;
-    }
+    double getLatitude() const { return latitude; }
 
-    double getLongitude() const {
-        return longitude;
-    }
+    double getLongitude() const { return longitude; }
 
     void display(ostream &s) const override {
         Media::display(s);

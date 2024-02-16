@@ -130,7 +130,7 @@ class Manager {
         while (file) {
             string classname;
             getline(file, classname);
-            if(file.eof()) break;
+            if (file.eof()) break;
             Media *media = MediaFactory::createMedia(classname);
 
             if (media == nullptr) {
