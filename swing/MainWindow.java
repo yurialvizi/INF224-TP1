@@ -40,14 +40,20 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         // Set window properties
-        setTitle("Example");
+        setTitle("Remote Control");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         textArea = new JTextArea();
         textArea.setSize(400, 300);
         scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(200, 100));
+        scrollPane.setPreferredSize(new Dimension(200, 300));
+        textArea.append("Type above the media name or group name and choose an action\n");
+        textArea.append("The database contains the following media:\n");
+        textArea.append("    \"Photo 1\" \"Photo 2\" \"Video 1\" \"Video 2\" \"Movie 1\" \"Movie 2\"\n");
+        textArea.append("The database contains the following groups:\n");
+        textArea.append("    \"Vacation\" \"Photos\" \"Videos\" \"Movies\"\n");
+        textArea.append("Attention: The media and groups are case sensitive\n");
 
         // add actions
         searchMediaAction = new ButtonAction(ButtonAction.Type.SEARCH_MEDIA, textArea, r -> sendRequest(r));
@@ -57,7 +63,7 @@ public class MainWindow extends JFrame {
 
         // add menu
         menuBar = new JMenuBar();
-        menu = new JMenu("File");
+        menu = new JMenu("Menu");
         searchMediaMenuItem = new JMenuItem(searchMediaAction);
         searchGroupMenuItem = new JMenuItem(searchGroupAction);
         playMediaMenuItem = new JMenuItem(playMediaAction);

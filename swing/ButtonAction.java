@@ -35,6 +35,7 @@ public class ButtonAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        textArea.append("\n");
         switch (type) {
             case SEARCH_MEDIA:
                 textArea.append("Searching media...\n");
