@@ -1,4 +1,5 @@
 package RemoteControl;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -40,8 +41,6 @@ public class MainWindow extends JFrame {
     }
 
     public MainWindow() {
-        
-
         // Set window properties
         setTitle("Example");
         setLocationRelativeTo(null);
@@ -71,7 +70,7 @@ public class MainWindow extends JFrame {
         menu.add(exitMenuItem);
         menuBar.add(menu);
         setJMenuBar(menuBar);
-        
+
         // Add toobar components
         textField = new JTextField(20);
         searchMediaButton = new JButton(searchMediaAction);
@@ -79,7 +78,6 @@ public class MainWindow extends JFrame {
         playMediaButton = new JButton(playMediaAction);
         exitButton = new JButton(exitAction);
 
-        
         // add toolbar
         toolbar = new JToolBar();
         toolbar.setLayout(new FlowLayout());
@@ -89,9 +87,9 @@ public class MainWindow extends JFrame {
         toolbar.add(playMediaButton);
         toolbar.add(exitButton);
         add(toolbar, BorderLayout.NORTH);
-        
+
         add(scrollPane, BorderLayout.CENTER);
-        
+
         pack();
         setVisible(true);
 

@@ -24,9 +24,6 @@ public class ClientSocket {
             socket = new Socket(serverURI, port);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
-            // out.writeUTF("Hello from " + socket.getLocalSocketAddress());
-            // gui.setTextArea("Server says " + in.readUTF());
-            // new Thread(this).start();
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -47,18 +44,6 @@ public class ClientSocket {
             e.printStackTrace();
         }
     }
-
-    // @Override
-    // public void run() {
-    //     try {
-    //         String linha;
-    //         while ((linha = in.readLine()) != null) {
-    //             gui.receberMensagem(linha);
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 
     public void closeConnection() {
         try {

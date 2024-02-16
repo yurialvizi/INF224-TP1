@@ -52,24 +52,4 @@ public class ButtonAction extends AbstractAction {
         }
         sendRequest.accept(type.getText().toLowerCase());
     }
-
-    // private void searchMedia() {
-        
-    //     sendRequest.accept(type.getText().toLowerCase());
-    //     // sendRequest("search media \"" + textField.getText() + "\"");
-    // }
-
-    // private void searchGroup() {
-    //     textArea.append("Searching group...\n");
-    //     // sendRequest("search group \"" + textField.getText() + "\"");
-    // }
-
-    // private void playMedia() {
-    //     textArea.append("Playing media...\n");
-    //     // clientSocket.sendRequest("play media \"" + textField.getText() + "\"");
-    // }
-
-    // private void exit() {
-    //     System.exit(0);
-    // }
 }
