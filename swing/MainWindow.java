@@ -115,7 +115,7 @@ public class MainWindow extends JFrame {
         setVisible(true);
 
         clientSocket = new ClientSocket("localhost", 3331, this);
-        clientSocket.conect();
+        clientSocket.connect();
     }
 
     /**
