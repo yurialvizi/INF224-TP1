@@ -1,3 +1,8 @@
+/**
+ * @file MainWindow.java
+ * @brief This file contains the implementation of the MainWindow class.
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,6 +17,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+/**
+ * @class MainWindow
+ * @brief Represents the main window of the application.
+ */
 public class MainWindow extends JFrame {
     private static final long serialVersionUID = 1L;
     private JMenuBar menuBar;
@@ -34,10 +43,18 @@ public class MainWindow extends JFrame {
     private ButtonAction exitAction;
     private ClientSocket clientSocket;
 
+    /**
+     * @brief The main method of the application.
+     * @param args The command-line arguments.
+     * @throws Exception If an error occurs.
+     */
     public static void main(String[] args) throws Exception {
         new MainWindow();
     }
 
+    /**
+     * @brief Constructs a new MainWindow object.
+     */
     public MainWindow() {
         // Set window properties
         setTitle("Remote Control");
@@ -101,6 +118,10 @@ public class MainWindow extends JFrame {
         clientSocket.conect();
     }
 
+    /**
+     * @brief Sends a request to the server.
+     * @param message The message to send.
+     */
     public void sendRequest(String message) {
         if (clientSocket == null) {
             System.out.println("clientSocket is null");
@@ -115,6 +136,10 @@ public class MainWindow extends JFrame {
         textField.setText("");
     }
 
+    /**
+     * @brief Sets the text of the text area.
+     * @param text The text to set.
+     */
     public void setTextArea(String text) {
         textArea.append(text + "\n");
     }

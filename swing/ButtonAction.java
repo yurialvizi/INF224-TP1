@@ -4,7 +4,14 @@ import java.util.function.Consumer;
 import javax.swing.AbstractAction;
 import javax.swing.JTextArea;
 
+/**
+ * The ButtonAction class represents an action performed by a button in a Swing application.
+ * It extends the AbstractAction class and implements the ActionListener interface.
+ */
 public class ButtonAction extends AbstractAction {
+    /**
+     * The Type enum represents the different types of button actions.
+     */
     public enum Type {
         SEARCH_MEDIA("Search Media"),
         SEARCH_GROUP("Search Group"),
@@ -26,6 +33,13 @@ public class ButtonAction extends AbstractAction {
     private Type type;
     private Consumer<String> sendRequest;
 
+    /**
+     * Constructs a ButtonAction object with the specified type, text area, and send request consumer.
+     * 
+     * @param type The type of the button action.
+     * @param textArea The text area where the action result will be displayed.
+     * @param sendRequest The consumer that sends the request associated with the button action.
+     */
     public ButtonAction(Type type, JTextArea textArea, Consumer<String> sendRequest) {
         super(type.getText());
         this.type = type;
@@ -33,6 +47,11 @@ public class ButtonAction extends AbstractAction {
         this.sendRequest = sendRequest;
     }
 
+    /**
+     * Performs the action associated with the button.
+     * 
+     * @param e The action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         textArea.append("\n");
