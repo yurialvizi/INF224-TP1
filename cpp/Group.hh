@@ -22,9 +22,10 @@ class Group : public list<MediaPtr> {
     friend class Manager;
     string getName() const { return name; }
     void display(ostream& s) const {
-        s << "---Group name: " << name << " | ";
+        s << "---Group name: " << name << endl;
         for (const auto& element : *this) {
             element->display(s);
+            s << "-------------------" << endl;
         }
     }
 };

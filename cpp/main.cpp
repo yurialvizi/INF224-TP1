@@ -50,13 +50,16 @@ const string PLAY = "play";
 int main(int argc, const char* argv[]) {
     Manager* manager = new Manager();
     MediaPtr v1(manager->createVideo("Video 1", "media/video.webm", 120));
-    MediaPtr v2(manager->createVideo("Video 2", "media/video.webm", 120));
+    MediaPtr v2(manager->createVideo("Video 2", "media/video.webm", 150));
     MediaPtr p1(manager->createPhoto("Photo 1", "media/photo.png", 120, 120));
-    MediaPtr p2(manager->createPhoto("Photo 2", "media/photo.png", 120, 120));
+    MediaPtr p2(manager->createPhoto("Photo 2", "media/photo.png", 40, 60));
+    MediaPtr m1(manager->createMovie("Movie 1", "media/video.webm", 120, new int[2]{60, 120}, 2));
+    MediaPtr m2(manager->createMovie("Movie 2", "media/video.webm", 200, new int[3]{60, 120, 180}, 3));
 
     manager->createGroup("Vacation", {v1, v2, p1, p2});
     manager->createGroup("Photos", {p1, p2});
     manager->createGroup("Videos", {v1, v2});
+    manager->createGroup("Movies", {m1, m2});
 
     auto* server = new TCPServer([&](string const& request, string& response) {
         cout << "request: " << request << endl;
@@ -103,46 +106,6 @@ if (status < 0) {
 }
 
 return 0;
-}
-
-#endif
-
-#ifdef VERSION_STEP_10
-
-#include <iostream>
-#include <vector>
-
-#include "Group.hh"
-#include "Manager.hh"
-#include "Media.hh"
-#include "Movie.hh"
-#include "Photo.hh"
-#include "Video.hh"
-
-typedef std::shared_ptr<Media> MediaPtr;
-
-int main(int argc, const char* argv[]) {
-    Manager* manager = new Manager();
-    MediaPtr v1(manager->createVideo("Video 1", "video1.mp4", 120));
-    MediaPtr v2(manager->createVideo("Video 2", "video2.mp4", 120));
-    MediaPtr p1(manager->createPhoto("Photo 1", "media/photo.png", 120, 120));
-    MediaPtr p2(manager->createPhoto("Photo 2", "photo2.jpg", 120, 120));
-
-    manager->createGroup("Vacation", {v1, v2, p1, p2});
-    manager->createGroup("Photos", {p1, p2});
-    manager->createGroup("Videos", {v1, v2});
-
-    cout << "Searching Vacation: " << endl;
-    manager->findGroup("Vacation");
-    cout << "Searching photo 1: " << endl;
-    manager->findMedia("Photo 1");
-    cout << "Deleting photo 2: " << endl;
-    manager->deleteMedia("Photo 2");
-    manager->findGroup("Vacation");
-    manager->findGroup("Photos");
-    manager->findMedia("Photo 2");
-
-    return 0;
 }
 
 #endif

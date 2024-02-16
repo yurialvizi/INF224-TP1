@@ -39,8 +39,9 @@ class Movie : public Video {
         s << "Chapters: "
           << " ";
         for (int i = 0; i < getNumberOfChapters(); i++) {
-            s << chapters[i] << " | ";
+            s << chapters[i] << " ";
         }
+        s << endl;
     }
 };
 
