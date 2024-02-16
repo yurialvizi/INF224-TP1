@@ -36,14 +36,11 @@ public class ClientSocket {
     public void sendRequest(String request) {
 
         try {
-            System.out.println("log: sending request " + request);
             out.println(request);
             String line =  in.readLine();
-            System.out.println("log: received line " + line + " " + line.equals("|"));
             while(!line.equals("|")) {
                 gui.setTextArea(line);
                 line = in.readLine();
-                System.out.println("log: received line " + line + " " + line.equals("|"));
 
             }
         } catch (Exception e) {
