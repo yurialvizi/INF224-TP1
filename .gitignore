@@ -4,3 +4,4 @@ depend-myprog
 *.o
 tcpserver
 tcpserver.zip
+*.class
