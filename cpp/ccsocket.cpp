@@ -1,3 +1,14 @@
+/**
+ * @file ccsocket.cpp
+ * @brief C++ Classes for TCP/IP and UDP Datagram INET Sockets.
+ * 
+ * This file contains the implementation of the ccsocket library, which provides C++ classes for TCP/IP and UDP Datagram INET Sockets.
+ * The library includes classes for creating and managing sockets, as well as functions for socket operations such as binding, connecting, sending, and receiving data.
+ * 
+ * @author Eric Lecolinet
+ * @date 2016/2020
+ * @see http://www.telecom-paristech.fr/~elc
+ */
 //
 //  ccsocket: C++ Classes for TCP/IP and UDP Datagram INET Sockets.
 //  (c) Eric Lecolinet 2016/2020 - http://www.telecom-paristech.fr/~elc

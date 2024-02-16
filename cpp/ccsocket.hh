@@ -1,3 +1,19 @@
+/**
+ * @file ccsocket.hh
+ * @brief ccsocket: C++ Classes for TCP/IP and UDP Datagram INET Sockets.
+ * (c) Eric Lecolinet 2016/2020 - https://www.telecom-paris.fr/~elc
+ *
+ * This file contains the declaration of the Socket, ServerSocket, and SocketBuffer classes.
+ * These classes provide functionality for creating and managing TCP/IP and UDP sockets.
+ * The Socket class represents a TCP/IP or UDP/Datagram IPv4 socket.
+ * The ServerSocket class represents a TCP/IP IPv4 server socket.
+ * The SocketBuffer class is used to preserve record boundaries when exchanging data between connected TCP/IP sockets.
+ *
+ * @note
+ * - ServerSocket should be used on the server side.
+ * - SIGPIPE signals are ignored when using Linux, BSD or MACOSX.
+ * - TCP/IP sockets do not preserve record boundaries but SocketBuffer solves this problem.
+ */
 //
 //  ccsocket: C++ Classes for TCP/IP and UDP Datagram INET Sockets.
 //  (c) Eric Lecolinet 2016/2020 - https://www.telecom-paris.fr/~elc
@@ -7,6 +23,7 @@
 //  - SocketBuffer: preserves record boundaries when exchanging data
 //   between TCP/IP sockets.
 //
+
 
 #ifndef ccuty_ccsocket
 #define ccuty_ccsocket 1

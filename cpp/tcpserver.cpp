@@ -1,8 +1,15 @@
-//
-//  tcpserver: TCP/IP INET Server.
-//  (c) Eric Lecolinet - Telecom ParisTech - 2016.
-//  http://www.telecom-paristech.fr/~elc
-//
+/**
+ * @file tcpserver.cpp
+ * @brief Implementation file for the tcpserver class.
+ *
+ * This file contains the implementation of the tcpserver class, which
+ * represents a TCP/IP INET server. It provides functionality to establish
+ * connections with clients and process incoming requests.
+ *
+ * @author Eric Lecolinet
+ * @date 2016
+ * @see http://www.telecom-paristech.fr/~elc
+ */
 
 #include "tcpserver.hh"
 
@@ -14,15 +21,29 @@ using namespace std;
 /// Connection with a given client. Each SocketCnx uses a different thread.
 class SocketCnx {
    public:
+    /**
+     * @brief Constructs a SocketCnx object.
+     * @param server The TCPServer object.
+     * @param socket The Socket object representing the client connection.
+     */
     SocketCnx(TCPServer&, Socket*);
+
+    /**
+     * @brief Destroys the SocketCnx object.
+     */
     ~SocketCnx();
 
+    /**
+     * @brief Processes incoming requests on the client connection.
+     */
     void processRequests();
 
-    TCPServer& server_;
-    Socket* sock_;
-    SocketBuffer* sockbuf_;
-    std::thread thread_;
+    TCPServer& server_;  ///< Reference to the TCPServer object.
+    Socket* sock_;  ///< Pointer to the Socket object representing the client
+                    ///< connection.
+    SocketBuffer* sockbuf_;  ///< Pointer to the SocketBuffer object for
+                             ///< reading/writing data.
+    std::thread thread_;     ///< Thread for processing requests.
 };
 
 SocketCnx::SocketCnx(TCPServer& server, Socket* socket)
@@ -39,15 +60,10 @@ SocketCnx::~SocketCnx() {
     delete sock_;
 }
 
-// infinite loop that processes incoming requests on a TCPServer::Cnx
-// connection.
 void SocketCnx::processRequests() {
     while (true) {
         std::string request, response;
 
-        // read the incoming request sent by the client
-        // SocketBuffer::readLine() lit jusqu'au premier délimiteur (qui est
-        // supprimé)
         auto received = sockbuf_->readLine(request);
 
         if (received < 0) {
@@ -60,18 +76,13 @@ void SocketCnx::processRequests() {
             break;
         }
 
-        // processes the request
         if (!server_.callback_) {
             response = "OK";
-        }
-        // closes the connection with this client if the callback returns false
-        else if (!server_.callback_(request, response)) {
+        } else if (!server_.callback_(request, response)) {
             server_.error("Closing connection with client");
             break;
         }
 
-        // a response is always sent to the client (otherwise it might block)
-        // writeLine() response folled by a \n delimiter
         response += "|";
         auto sent = sockbuf_->writeLine(response);
 
@@ -86,34 +97,28 @@ void SocketCnx::processRequests() {
         }
     }
 
-    // free resources and kills thread
     delete this;
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-TCPServer::TCPServer(Callback const& callback) : callback_(callback) {
-    // signal(SIGPIPE, SIG_IGN);  // ignore nasty SIGPIPEs
-}
+TCPServer::TCPServer(Callback const& callback) : callback_(callback) {}
 
 TCPServer::~TCPServer() {}
 
 int TCPServer::run(int port) {
-    int status = servsock_.bind(port);  // lier le ServerSocket a ce port
+    int status = servsock_.bind(port);
 
     if (status < 0) {
         error("Can't bind on port: " + to_string(port));
-        return status;  // returns negative value, see Socket::bind()
+        return status;
     }
 
     while (true) {
         if (auto* socket = servsock_.accept()) {
-            // lance la lecture des messages de ce socket dans un thread
             new SocketCnx(*this, socket);
         } else
             error("input connection failed");
     }
-    return 0;  // means OK
+    return 0;
 }
 
 void TCPServer::error(const string& msg) {
